@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <title>page 1</title>
+  </head>
+  <body>
+    <input id="input-data" />
+    <br />
+    <button id="button-alert">click</button>
+    <br />
+    <a id="link-next" href="page-2.html?aaa=bbb&ccc=ddd">next</a>
+  </body>
+  <script>
+    document.querySelector("#button-alert").addEventListener("click", () => {
+      const value = document.querySelector("#input-data").value;
+      if (value) {
+        alert(value);
+      }
+    });
+  </script>
+</html>

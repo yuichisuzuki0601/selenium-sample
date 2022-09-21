@@ -1,0 +1,22 @@
+{
+  "name": "selenium-sample",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "selenium": "MODE=launch ts-node init.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^3.3.0",
+    "@types/node": "^18.7.18",
+    "@types/selenium-webdriver": "^4.1.5",
+    "chromedriver": "^105.0.1",
+    "prettier": "^2.7.1",
+    "selenium-webdriver": "^4.4.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.3"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "folders": [
+    {
+      "path": ".",
+      "name": "root"
+    },
+    {
+      "path": "./pages"
+    },
+    {
+      "path": "./libs"
+    },
+    {
+      "path": "./src"
+    }
+  ],
+  "settings": {
+    "editor.formatOnSave": true,
+    "[javascript][typescript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
+  },
+  "extensions": {
+    "recommendations": ["ms-ceintl.vscode-language-pack-ja", "esbenp.prettier-vscode", "dbaeumer.vscode-eslint"]
+  }
+}
