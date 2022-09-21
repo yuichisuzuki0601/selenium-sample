@@ -2,8 +2,10 @@ import { Builder } from 'selenium-webdriver';
 import { Options } from 'selenium-webdriver/chrome';
 
 import { main } from './src/main';
+import { profilePath } from './src/profilePath';
 
 const options = new Options();
+options.addArguments(`--user-data-dir=${profilePath}`);
 if (process.env.MODE === 'attach') {
   options.debuggerAddress('localhost:9222');
 }
