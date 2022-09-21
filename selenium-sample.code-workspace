@@ -12,6 +12,9 @@
     },
     {
       "path": "./src"
+    },
+    {
+      "path": "./cmd"
     }
   ],
   "settings": {
