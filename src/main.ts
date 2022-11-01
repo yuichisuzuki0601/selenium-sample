@@ -13,9 +13,11 @@ export const main = async (driver: ThenableWebDriver) => {
   await driver.findElement(By.name('pwd')).sendKeys(PASSWORD, Key.ENTER);
 
   const process = await import(processFile);
-  await process.execute(driver);
+  const result = await process.execute(driver);
 
-  // await driver.quit();
+  if (result) {
+    await driver.quit();
+  }
 };
 
 export default main;
