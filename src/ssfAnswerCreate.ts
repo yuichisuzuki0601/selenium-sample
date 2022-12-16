@@ -51,6 +51,7 @@ export const execute = async (driver: ThenableWebDriver) => {
   // やっつけ
   const structMultiSelect = async (sectionIndex: number, fieldIndex: number) => {
     await driver.findElement(By.xpath('//*[@id="mui-5"]/div[6]/span/input')).click();
+    await driver.findElement(By.xpath('//*[@id="sections[15].fields[0].additionalValue"]')).sendKeys('JR京浜東北線鶴見駅');
   };
 
   const serialCode = async (sectionIndex: number, fieldIndex: number, blockIndex: number, value: string) => {
@@ -63,9 +64,7 @@ export const execute = async (driver: ThenableWebDriver) => {
       await driver.findElement(By.xpath(`//*[@id="sections[${sectionIndex}].fields[${fieldIndex}].${type}Value"]`)).click();
       await sleep(100);
       await driver
-        .findElement(
-          By.xpath(`//*[@id="menu-sections[${sectionIndex}].fields[${fieldIndex}].${type}Value"]/div[3]/ul/li[${itemIndex + 1}]`)
-        )
+        .findElement(By.xpath(`//*[@id="menu-sections[${sectionIndex}].fields[${fieldIndex}].${type}Value"]/div[3]/ul/li[${itemIndex}]`))
         .click();
     };
     await input('min', minIndex);
@@ -91,51 +90,54 @@ export const execute = async (driver: ThenableWebDriver) => {
   await sleep(100);
   await driver.findElement(By.xpath('//*[@id="menu-"]/div[3]/ul/li[1]')).click();
 
+  let sectionIndex = 0;
+
   // fill form step1
-  await text(0, 0, '田中');
-  await text(0, 1, '太郎');
-  await text(1, 0, 'タナカ');
-  await text(1, 1, 'タロウ');
-  await serialCode(2, 0, 0, '2130002');
-  await singleSelect(3, 0, 15);
-  await text(3, 1, '川崎市高津区二子5-9-1');
-  await serialCode(4, 0, 0, '08012345678');
-  await email(5, 0, 'stones_taro@gmail.com');
-  await date(6, 0, 1980, 10, 10);
-  await singleSelect(7, 0, 2);
+  await text(sectionIndex, 0, '田中');
+  await text(sectionIndex, 1, '太郎');
+  await text(++sectionIndex, 0, 'タナカ');
+  await text(sectionIndex, 1, 'タロウ');
+  await serialCode(++sectionIndex, 0, 0, '2130002');
+  await singleSelect(++sectionIndex, 0, 15);
+  await text(sectionIndex, 1, '川崎市高津区二子5-9-1');
+  await serialCode(++sectionIndex, 0, 0, '08012345678');
+  await email(++sectionIndex, 0, 'stones_taro@gmail.com');
+  await date(++sectionIndex, 0, 1980, 10, 10);
+  await singleSelect(++sectionIndex, 0, 2);
 
   // fill form step2
-  await singleSelect(8, 0, 2);
-  await multiSelect(9, 0, [1, 2]);
+  await singleSelect(++sectionIndex, 0, 2);
+  await multiSelect(++sectionIndex, 0, [1, 2]);
 
   // fill form step3
-  await singleSelect(10, 0, 2);
-  await singleSelect(10, 1, 3);
-  await singleSelect(10, 2, 2);
-  await singleSelect(10, 3, 2);
-  await singleSelect(11, 0, 2);
-  await singleSelect(12, 0, 2);
-  await multiSelect(13, 0, [1, 2]); // 間取り
-  await multiSelect(14, 0, [1, 2]); // 建物種別
-  await structMultiSelect(15, 0); // 沿線/駅
-  await singleSelect(16, 0, 2);
-  await singleSelect(17, 0, 2);
-  await singleSelect(18, 0, 2);
-  await singleSelect(19, 0, 2);
-  await singleSelect(20, 0, 2);
-  await multiSelect(21, 0, [1, 2]);
-  await multiSelect(22, 0, [1, 2]);
-  await multiSelect(23, 0, [1, 2]);
+  await singleSelect(++sectionIndex, 0, 2);
+  await singleSelect(sectionIndex, 1, 3);
+  await singleSelect(sectionIndex, 2, 2);
+  await singleSelect(sectionIndex, 3, 2);
+  await singleSelect(++sectionIndex, 0, 2);
+  await singleSelect(++sectionIndex, 0, 2);
+  await multiSelect(++sectionIndex, 0, [1, 2]); // 間取り
+  await multiSelect(++sectionIndex, 0, [1, 2]); // 建物種別
+  await structMultiSelect(++sectionIndex, 0); // 沿線/駅
+  await singleSelect(++sectionIndex, 0, 2);
+  await singleSelect(++sectionIndex, 0, 2);
+  await singleSelect(++sectionIndex, 0, 2);
+  await singleSelect(++sectionIndex, 0, 2);
+  await singleSelect(++sectionIndex, 0, 2);
+  await multiSelect(++sectionIndex, 0, [1, 2]);
+  await multiSelect(++sectionIndex, 0, [1, 2]);
+  await multiSelect(++sectionIndex, 0, [1, 2]);
 
-  await range(24, 0, 2, 3); // 賃料2
-  await singleSelect(24, 1, 2);
+  // 賃料2
+  await range(++sectionIndex, 0, 1, 5);
+  await singleSelect(sectionIndex, 1, 2);
 
   // fill form confirm
-  await singleSelect(25, 0, 2);
-  await singleSelect(26, 0, 2);
-  await singleSelect(27, 0, 2);
-  await text(28, 0, '川崎アパート101号');
-  await textarea(29, 0, 'メモメモ');
+  await singleSelect(++sectionIndex, 0, 2);
+  await singleSelect(++sectionIndex, 0, 2);
+  await singleSelect(++sectionIndex, 0, 2);
+  await text(++sectionIndex, 0, '川崎アパート101号');
+  await textarea(++sectionIndex, 0, 'メモメモ');
 
   return false; // ブラウザを閉じないようにする
 };
