@@ -1,11 +1,8 @@
-import { By, Key, ThenableWebDriver } from 'selenium-webdriver';
+import { ThenableWebDriver } from 'selenium-webdriver';
 
 import { saveFile } from '../libs/systems';
 
-const USERID = 'cws0001';
-const PASSWORD = '';
-
-const processFile = './fillOver20Qualifications.ts';
+const processFile = './ssfAnswerCreate.ts';
 
 export const main = async (driver: ThenableWebDriver) => {
   const process = await import(processFile);
@@ -13,8 +10,6 @@ export const main = async (driver: ThenableWebDriver) => {
   console.log(process.getUrl());
 
   await driver.get(process.getUrl());
-  await driver.findElement(By.name('uid')).sendKeys(USERID);
-  await driver.findElement(By.name('pwd')).sendKeys(PASSWORD, Key.ENTER);
 
   let result = false;
 

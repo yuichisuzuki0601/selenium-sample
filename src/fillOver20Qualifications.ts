@@ -1,8 +1,11 @@
-import { By, ThenableWebDriver } from 'selenium-webdriver';
+import { By, Key, ThenableWebDriver } from 'selenium-webdriver';
 
 import { sleep } from '../libs/systems';
 
 const URL = 'http://localhost:8080/conversion-nbh-cws/cws/cws';
+
+const USERID = 'cws0001';
+const PASSWORD = '';
 
 const sikCds = [
   '115970002',
@@ -37,9 +40,12 @@ export const getUrl = () => {
 };
 
 export const execute = async (driver: ThenableWebDriver) => {
+  await driver.findElement(By.name('uid')).sendKeys(USERID);
+  await driver.findElement(By.name('pwd')).sendKeys(PASSWORD, Key.ENTER);
+
   await driver.findElement(By.partialLinkText('技能資格申請')).click();
 
-  await sleep(1);
+  await sleep(1000);
 
   for (let i = 0; i < sikCds.length; ++i) {
     await driver.findElement(By.css('input[name="@SUB.ADD."')).click();

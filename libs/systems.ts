@@ -1,12 +1,14 @@
 import * as fs from 'fs';
 
-export const sleep = (sec: number) => {
+export const sleep = (millis: number) => {
   return new Promise<void>((resolve) => {
-    const intervalId = setInterval(() => console.log('sleeping...'), 1000);
+    const sleeping = () => console.log('sleeping...');
+    sleeping();
+    const intervalId = setInterval(sleeping, 1000);
     setTimeout(() => {
       clearInterval(intervalId);
       resolve();
-    }, sec * 1000);
+    }, millis);
   });
 };
 
