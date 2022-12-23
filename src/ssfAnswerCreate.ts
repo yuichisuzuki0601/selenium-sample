@@ -87,7 +87,7 @@ export const execute = async (driver: ThenableWebDriver) => {
 
   // select form
   await driver.findElement(By.xpath('//*[@id="main-content"]/div/div[1]/div/div')).click();
-  await sleep(100);
+  await sleep(1000);
   await driver.findElement(By.xpath('//*[@id="menu-"]/div[3]/ul/li[1]')).click();
 
   let sectionIndex = 0;
@@ -110,27 +110,24 @@ export const execute = async (driver: ThenableWebDriver) => {
   await multiSelect(++sectionIndex, 0, [1, 2]);
 
   // fill form step3
-  await singleSelect(++sectionIndex, 0, 2);
+  await singleSelect(++sectionIndex, 0, 2); // 入居者構成
   await singleSelect(sectionIndex, 1, 3);
   await singleSelect(sectionIndex, 2, 2);
   await singleSelect(sectionIndex, 3, 2);
-  await singleSelect(++sectionIndex, 0, 2);
-  await singleSelect(++sectionIndex, 0, 2);
+  await singleSelect(++sectionIndex, 0, 2); // ペット飼育有無
+  await singleSelect(++sectionIndex, 0, 2); // 広さ
   await multiSelect(++sectionIndex, 0, [1, 2]); // 間取り
   await multiSelect(++sectionIndex, 0, [1, 2]); // 建物種別
   await structMultiSelect(++sectionIndex, 0); // 沿線/駅
-  await singleSelect(++sectionIndex, 0, 2);
-  await singleSelect(++sectionIndex, 0, 2);
-  await singleSelect(++sectionIndex, 0, 2);
-  await singleSelect(++sectionIndex, 0, 2);
-  await singleSelect(++sectionIndex, 0, 2);
-  await multiSelect(++sectionIndex, 0, [1, 2]);
-  await multiSelect(++sectionIndex, 0, [1, 2]);
-  await multiSelect(++sectionIndex, 0, [1, 2]);
-
-  // 賃料2
-  await range(++sectionIndex, 0, 1, 5);
+  await singleSelect(++sectionIndex, 0, 2); // 駅徒歩分
+  await range(++sectionIndex, 0, 1, 5); // 賃料
   await singleSelect(sectionIndex, 1, 2);
+  await singleSelect(++sectionIndex, 0, 2); // 築年数
+  await singleSelect(++sectionIndex, 0, 2); // お引っ越し理由
+  await singleSelect(++sectionIndex, 0, 2); // お引っ越し希望時期
+  await multiSelect(++sectionIndex, 0, [1, 2]); // 室内設備条件
+  await multiSelect(++sectionIndex, 0, [1, 2]); // 建物設備条件
+  await multiSelect(++sectionIndex, 0, [1, 2]); // 入居・その他条件
 
   // fill form confirm
   await singleSelect(++sectionIndex, 0, 2);
