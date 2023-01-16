@@ -3,6 +3,12 @@ import { By, Key, ThenableWebDriver } from 'selenium-webdriver';
 import { sleep } from '../libs/systems';
 
 const URL = 'http://localhost:3000';
+const username = 'stones-55';
+const password = 'Wd2!rWSVz+YP';
+
+// const URL = 'https://staging.ssf-admin.stones-service.com';
+// const username = 'test-admin';
+// const password = 'tG9hQdBpSwaT';
 
 export const getUrl = () => {
   return URL;
@@ -76,8 +82,8 @@ export const execute = async (driver: ThenableWebDriver) => {
   await sleep(3000);
 
   // login
-  await driver.findElement(By.id('username')).sendKeys('stones-55');
-  await driver.findElement(By.id('password')).sendKeys('Wd2!rWSVz+YP');
+  await driver.findElement(By.id('username')).sendKeys(username);
+  await driver.findElement(By.id('password')).sendKeys(password);
   await driver.findElement(By.id('kc-login')).click();
 
   // send page
