@@ -25,16 +25,43 @@ export const execute = async (driver: ThenableWebDriver) => {
   const textarea = text;
 
   const date = async (sectionIndex: number, fieldIndex: number, year: number, month: number, day: number) => {
-    const xpath = `//*[@id="sections[${sectionIndex}].fields[${fieldIndex}].value"]`;
-    const element = driver.findElement(By.xpath(xpath));
-    await element.click();
-    await element.sendKeys(String(year));
-    await element.sendKeys(Key.TAB);
-    await element.sendKeys(String(month));
-    if (month === 1) {
-      await element.sendKeys(Key.TAB);
+    const buttonXpath = `//*[@name="sections[${sectionIndex}].fields[${fieldIndex}].value"]/following-sibling::div/button`;
+    const buttonElement = driver.findElement(By.xpath(buttonXpath));
+    await buttonElement.click();
+
+    const yearButtonElements = await driver.findElements(By.className('PrivatePickersYear-yearButton'));
+    yearButtonElements.forEach(async (yearButtonElement) => {
+      const yearText = (await yearButtonElement.getText()).toString();
+      if (yearText === String(year)) {
+        await yearButtonElement.click();
+      }
+    });
+
+    await sleep(3000);
+
+    const monthButtonElements = await driver.findElements(By.className('PrivatePickersMonth-root'));
+    monthButtonElements.forEach(async (monthButtonElement) => {
+      const monthText = (await monthButtonElement.getText()).toString();
+      if (monthText === String(`${month}月`)) {
+        await monthButtonElement.click();
+      }
+    });
+
+    await sleep(3000);
+
+    if (day < 0) {
+      return;
     }
-    await element.sendKeys(String(day));
+
+    const dayButtonElements = await driver.findElements(By.className('MuiPickersDay-root'));
+    dayButtonElements.forEach(async (dayButtonElement) => {
+      const dayText = (await dayButtonElement.getText()).toString();
+      if (dayText === String(day)) {
+        await dayButtonElement.click();
+      }
+    });
+
+    await sleep(3000);
   };
 
   const singleSelect = async (sectionIndex: number, fieldIndex: number, itemIndex: number) => {
@@ -56,7 +83,7 @@ export const execute = async (driver: ThenableWebDriver) => {
 
   // やっつけ
   const structMultiSelect = async (sectionIndex: number, fieldIndex: number) => {
-    await driver.findElement(By.xpath('//*[@id="mui-5"]/div[6]/span/input')).click();
+    await driver.findElement(By.xpath('//*[@id="mui-6"]/div[6]/span/input')).click();
     await driver.findElement(By.xpath('//*[@id="sections[15].fields[0].additionalValue"]')).sendKeys('JR京浜東北線鶴見駅');
   };
 
@@ -87,7 +114,7 @@ export const execute = async (driver: ThenableWebDriver) => {
   await driver.findElement(By.id('kc-login')).click();
 
   // send page
-  await driver.get(URL + '/#/answers/create');
+  await driver.get(URL + '/answers/create');
 
   await sleep(4000);
 
@@ -130,7 +157,8 @@ export const execute = async (driver: ThenableWebDriver) => {
   await singleSelect(sectionIndex, 1, 2);
   await singleSelect(++sectionIndex, 0, 2); // 築年数
   await singleSelect(++sectionIndex, 0, 2); // お引っ越し理由
-  await singleSelect(++sectionIndex, 0, 2); // お引っ越し希望時期
+  // await singleSelect(++sectionIndex, 0, 2); // お引っ越し希望時期
+  await date(++sectionIndex, 0, 2023, 6, -1); // お引っ越し希望時期
   await multiSelect(++sectionIndex, 0, [1, 2]); // 室内設備条件
   await multiSelect(++sectionIndex, 0, [1, 2]); // 建物設備条件
   await multiSelect(++sectionIndex, 0, [1, 2]); // 入居・その他条件
