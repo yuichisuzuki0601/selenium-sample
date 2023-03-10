@@ -25,7 +25,7 @@ export const execute = async (driver: ThenableWebDriver) => {
   const textarea = text;
 
   const date = async (sectionIndex: number, fieldIndex: number, year: number, month: number, day: number) => {
-    const buttonXpath = `//*[@name="sections[${sectionIndex}].fields[${fieldIndex}].value"]/following-sibling::div/button`;
+    const buttonXpath = `//*[@name="sections[${sectionIndex}].fields[${fieldIndex}].value"]/following-sibling::div[2]/button`;
     const buttonElement = driver.findElement(By.xpath(buttonXpath));
     await buttonElement.click();
 
